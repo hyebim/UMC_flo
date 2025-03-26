@@ -5,7 +5,7 @@ plugins {
 
 android {
     namespace = "umcandroid.essential.week02_flo_1"
-    compileSdk = 34
+    compileSdk = 35
 
     defaultConfig {
         applicationId = "umcandroid.essential.week02_flo_1"

@@ -11,6 +11,7 @@
         android:label="@string/title_home"
         tools:layout="@layout/fragment_home" />
 
+    <!--
     <fragment
         android:id="@+id/navigation_dashboard"
         android:name="umcandroid.essential.week02_flo_1.ui.dashboard.DashboardFragment"
@@ -22,4 +23,5 @@
         android:name="umcandroid.essential.week02_flo_1.ui.notifications.NotificationsFragment"
         android:label="@string/title_notifications"
         tools:layout="@layout/fragment_search" />
+        -->
 </navigation>
