@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item
+        android:id="@+id/navigation_home"
+        android:icon="@drawable/ic_bottom_home_select"
+        android:title="홈" />
+
+    <item
+        android:id="@+id/navigation_dashboard"
+        android:icon="@drawable/ic_bottom_look_select"
+        android:title="둘러보기" />
+
+    <item
+        android:id="@+id/navigation_notifications"
+        android:icon="@drawable/ic_bottom_search_select"
+        android:title="검색" />
+
+    <item
+        android:id="@+id/navigation_box"
+        android:icon="@drawable/ic_bottom_locker_select"
+        android:title="보관함" />
+
+</menu>
