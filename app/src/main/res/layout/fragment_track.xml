@@ -1,0 +1,329 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".ui.home.TrackFragment">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+    <androidx.core.widget.NestedScrollView
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:fillViewport="true"
+        android:orientation="vertical"
+        android:overScrollMode="never"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <TextView
+            android:id="@+id/textView11"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:text="전체선택"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/textView12"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="16dp"
+            android:text="전체듣기"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <LinearLayout
+            android:id="@+id/linearLayout1"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="11dp"
+            android:orientation="horizontal"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/textView11">
+
+            <TextView
+                android:id="@+id/tv_num1"
+                android:layout_width="55dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="01"
+                android:textColor="#000000"
+                android:textStyle="bold"
+                tools:layout_editor_absoluteX="1dp"
+                tools:layout_editor_absoluteY="493dp" />
+
+            <LinearLayout
+                android:layout_width="85dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/tv_main1"
+                    android:layout_width="match_parent"
+                    android:layout_height="30dp"
+                    android:layout_weight="1"
+                    android:text="title"
+                    tools:layout_editor_absoluteX="56dp"
+                    tools:layout_editor_absoluteY="491dp" />
+
+                <TextView
+                    android:id="@+id/tv_singer1"
+                    android:layout_width="wrap_content"
+                    android:layout_height="33dp"
+                    android:layout_weight="1"
+                    android:text="아이유 (IU)"
+                    tools:layout_editor_absoluteX="56dp"
+                    tools:layout_editor_absoluteY="521dp" />
+            </LinearLayout>
+
+            <TextView
+                android:id="@+id/tv_title1"
+                android:layout_width="185dp"
+                android:layout_height="53dp"
+                android:layout_weight="1"
+                android:text="라일락"
+                tools:layout_editor_absoluteX="142dp"
+                tools:layout_editor_absoluteY="491dp" />
+
+            <ImageView
+                android:id="@+id/iv_play1"
+                android:layout_width="36dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:src="@drawable/btn_miniplayer_play"
+                tools:layout_editor_absoluteX="328dp"
+                tools:layout_editor_absoluteY="491dp" />
+
+            <ImageView
+                android:id="@+id/iv_more1"
+                android:layout_width="43dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:src="@drawable/btn_player_more"
+                tools:layout_editor_absoluteX="365dp"
+                tools:layout_editor_absoluteY="491dp" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/linearLayout2"
+            android:layout_width="408dp"
+            android:layout_height="62dp"
+            android:orientation="horizontal"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/linearLayout1"
+            tools:layout_editor_absoluteY="100dp">
+
+            <TextView
+                android:id="@+id/tv_num2"
+                android:layout_width="55dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="02"
+                android:textColor="#000000"
+                android:textStyle="bold"
+                tools:layout_editor_absoluteX="2dp"
+                tools:layout_editor_absoluteY="554dp" />
+
+            <LinearLayout
+                android:layout_width="270dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/tv_singer2"
+                    android:layout_width="wrap_content"
+                    android:layout_height="33dp"
+                    android:layout_weight="1"
+                    android:text="아이유 (IU)"
+                    tools:layout_editor_absoluteX="58dp"
+                    tools:layout_editor_absoluteY="595dp" />
+
+                <TextView
+                    android:id="@+id/tv_title2"
+                    android:layout_width="185dp"
+                    android:layout_height="53dp"
+                    android:layout_weight="1"
+                    android:text="라일락"
+                    tools:layout_editor_absoluteX="58dp"
+                    tools:layout_editor_absoluteY="554dp" />
+            </LinearLayout>
+
+            <ImageView
+                android:id="@+id/iv_play2"
+                android:layout_width="36dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:src="@drawable/btn_miniplayer_play"
+                tools:layout_editor_absoluteX="328dp"
+                tools:layout_editor_absoluteY="554dp" />
+
+            <ImageView
+                android:id="@+id/iv_more2"
+                android:layout_width="43dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:src="@drawable/btn_player_more"
+                tools:layout_editor_absoluteX="366dp"
+                tools:layout_editor_absoluteY="554dp" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/linearLayout3"
+            android:layout_width="408dp"
+            android:layout_height="62dp"
+            android:orientation="horizontal"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.6"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/linearLayout2">
+
+            <TextView
+                android:id="@+id/tv_num3"
+                android:layout_width="55dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="03"
+                android:textColor="#000000"
+                android:textStyle="bold"
+                tools:layout_editor_absoluteX="2dp"
+                tools:layout_editor_absoluteY="616dp" />
+
+            <LinearLayout
+                android:layout_width="85dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/tv_main3"
+                    android:layout_width="match_parent"
+                    android:layout_height="30dp"
+                    android:layout_weight="1"
+                    android:text="title"
+                    tools:layout_editor_absoluteX="58dp"
+                    tools:layout_editor_absoluteY="616dp" />
+
+                <TextView
+                    android:id="@+id/tv_singer3"
+                    android:layout_width="wrap_content"
+                    android:layout_height="33dp"
+                    android:layout_weight="1"
+                    android:text="아이유 (IU)"
+                    tools:layout_editor_absoluteX="58dp"
+                    tools:layout_editor_absoluteY="645dp" />
+            </LinearLayout>
+
+            <TextView
+                android:id="@+id/tv_title3"
+                android:layout_width="185dp"
+                android:layout_height="53dp"
+                android:layout_weight="1"
+                android:text="Coin"
+                tools:layout_editor_absoluteX="143dp"
+                tools:layout_editor_absoluteY="616dp" />
+
+            <ImageView
+                android:id="@+id/iv_play3"
+                android:layout_width="36dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:src="@drawable/btn_miniplayer_play"
+                tools:layout_editor_absoluteX="329dp"
+                tools:layout_editor_absoluteY="616dp" />
+
+            <ImageView
+                android:id="@+id/iv_more3"
+                android:layout_width="43dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:src="@drawable/btn_player_more"
+                tools:layout_editor_absoluteX="366dp"
+                tools:layout_editor_absoluteY="616dp" />
+        </LinearLayout>
+
+
+        <LinearLayout
+            android:id="@+id/linearLayout4"
+            android:layout_width="408dp"
+            android:layout_height="62dp"
+            android:orientation="horizontal"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.333"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/linearLayout3">
+
+            <TextView
+                android:id="@+id/tv_num4"
+                android:layout_width="55dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="04"
+                android:textColor="#000000"
+                android:textStyle="bold"
+                tools:layout_editor_absoluteX="1dp"
+                tools:layout_editor_absoluteY="678dp" />
+
+            <LinearLayout
+                android:layout_width="270dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/tv_title4"
+                    android:layout_width="185dp"
+                    android:layout_height="53dp"
+                    android:layout_weight="1"
+                    android:text="봄 안녕 봄"
+                    tools:layout_editor_absoluteX="57dp"
+                    tools:layout_editor_absoluteY="678dp" />
+
+                <TextView
+                    android:id="@+id/tv_singer4"
+                    android:layout_width="wrap_content"
+                    android:layout_height="33dp"
+                    android:layout_weight="1"
+                    android:text="아이유 (IU)"
+                    tools:layout_editor_absoluteX="57dp"
+                    tools:layout_editor_absoluteY="719dp" />
+            </LinearLayout>
+
+            <ImageView
+                android:id="@+id/iv_play4"
+                android:layout_width="36dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:src="@drawable/btn_miniplayer_play"
+                tools:layout_editor_absoluteX="328dp"
+                tools:layout_editor_absoluteY="678dp" />
+
+            <ImageView
+                android:id="@+id/iv_more4"
+                android:layout_width="43dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:src="@drawable/btn_player_more"
+                tools:layout_editor_absoluteX="365dp"
+                tools:layout_editor_absoluteY="678dp" />
+        </LinearLayout>
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </androidx.core.widget.NestedScrollView>
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</FrameLayout>
