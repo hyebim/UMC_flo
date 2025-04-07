@@ -42,16 +42,20 @@ class MainActivity : AppCompatActivity() {
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        val song = Song(binding.tvMiniplayerTitle.text.toString(), binding.tvMiniplayerSinger.text.toString())
+        val song = Song(binding.tvMiniplayerTitle.text.toString(), binding.tvMiniplayerSinger.text.toString(), 0, 60, false)
         binding.bottomLayout.setOnClickListener {
             val intent = Intent(this, SongActivity::class.java).apply {
                 //putExtra("title", "라일락")  // 초기값 전달
                 //putExtra("singer", "아이유 (IU)")  // 초기값 전달
                 putExtra("title", song.title)
                 putExtra("singer", song.singer)
+                putExtra("second", song.second)
+                putExtra("playTime", song.playTime)
+                putExtra("isPlaying", song.isPlaying)
                 //startActivity(intent)
             }
             songActivityLauncher.launch(intent)  // SongActivity 실행
+            //startActivity(intent)
         }
 
         val navView: BottomNavigationView = binding.bottomNavigation
