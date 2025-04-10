@@ -6,6 +6,7 @@ import android.os.Bundle
 import android.util.Log
 import android.view.View
 import android.widget.ImageView
+import android.widget.SeekBar
 import android.widget.TextView
 import android.widget.Toast
 import androidx.activity.enableEdgeToEdge
@@ -50,18 +51,6 @@ class SongActivity : AppCompatActivity() {
             finish()  // 현재 Activity 종료
         }
 
-        // iv_play 버튼 클릭 시 이미지 변경
-//        binding.ivPlay.setOnClickListener {
-//            if (isPlaying) {
-//                // 일시 정지 상태로 변경
-//                binding.ivPlay.setImageResource(R.drawable.btn_miniplayer_play)  // 플레이 아이콘으로 변경
-//                isPlaying = false
-//            } else {
-//                // 재생 상태로 변경
-//                binding.ivPlay.setImageResource(R.drawable.btn_miniplay_pause)  // 일시 정지 아이콘으로 변경
-//                isPlaying = true
-//            }
-//        }
         binding.ivPlay.setOnClickListener {
             isPlaying = !isPlaying  // 먼저 상태를 토글해주고
 
@@ -71,6 +60,22 @@ class SongActivity : AppCompatActivity() {
                 startTimer()  // 멈췄던 쓰레드를 다시 시작
             }
         }
+
+
+        binding.seekBarSong.setOnSeekBarChangeListener(object : SeekBar.OnSeekBarChangeListener {
+            override fun onProgressChanged(seekBar: SeekBar?, progress: Int, fromUser: Boolean) {
+                if (fromUser) {
+                    val intent = Intent(this@SongActivity, MainActivity::class.java)
+                    intent.putExtra("progress", progress)
+                    intent.addFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP or Intent.FLAG_ACTIVITY_CLEAR_TOP)
+                    startActivity(intent)
+                }
+            }
+
+            override fun onStartTrackingTouch(seekBar: SeekBar?) {}
+            override fun onStopTrackingTouch(seekBar: SeekBar?) {}
+        })
+
 
         ViewCompat.setOnApplyWindowInsetsListener(binding.root) { v, insets ->
             val systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars())
@@ -82,8 +87,15 @@ class SongActivity : AppCompatActivity() {
     override fun onDestroy() {
         super.onDestroy()
         timer.interrupt()
+
+        // 마지막 SeekBar progress 전달
+        val intent = Intent(this, MainActivity::class.java)
+        intent.putExtra("progress", binding.seekBarSong.progress)
+        intent.addFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP or Intent.FLAG_ACTIVITY_CLEAR_TOP)
+        startActivity(intent)
     }
 
+    //song 데이터 클래스 초기화 함수
     private fun initSong() {
         if (intent.hasExtra("title") && intent.hasExtra("singer")) {
             song = Song(
@@ -97,12 +109,13 @@ class SongActivity : AppCompatActivity() {
         startTimer()
     }
 
+    //songactivity 화면에 받아와서 초기화 된 song에 대한 data를 뷰 랜더링
     private fun setPlayer(song: Song) {
         binding.tvSongTitle.text = intent.getStringExtra("title")!!
         binding.tvSongSinger.text = intent.getStringExtra("singer")!!
         binding.tvSongStartTime.text = String.format("%02d:%02d", song.second / 60, song.second % 60)
         binding.tvSongEndTime.text = String.format("%02d:%02d", song.playTime / 60, song.playTime % 60)
-        binding.seekBar.progress = (song.second * 1000 / song.playTime)
+        binding.seekBarSong.progress = (song.second * 1000 / song.playTime)
 
         setPlayerStatus(song.isPlaying)
     }
@@ -126,6 +139,7 @@ class SongActivity : AppCompatActivity() {
         }
     }
 
+    //쓰레드에서 시간이 지남에 따라 timer와 seekbar의 값을 바꾸어야하기 때문에 binding 변수를 사용해야하므로 inner 클래스로
     inner class Timer(private val playTime: Int, var isPlaying: Boolean = true): Thread() {
         private var second : Int = 0
         private var mills : Float = 0f
@@ -142,7 +156,7 @@ class SongActivity : AppCompatActivity() {
                         mills += 50
 
                         runOnUiThread {
-                            binding.seekBar.progress = ((mills / playTime) * 100).toInt()
+                            binding.seekBarSong.progress = ((mills / playTime) * 100).toInt()
                         }
                         if(mills % 1000 == 0f) {
                             runOnUiThread {
@@ -159,4 +173,7 @@ class SongActivity : AppCompatActivity() {
         }
 
     }
+
+
+
 }

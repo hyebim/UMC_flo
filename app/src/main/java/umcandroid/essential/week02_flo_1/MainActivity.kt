@@ -1,7 +1,10 @@
 package umcandroid.essential.week02_flo_1
 
 import android.app.Activity
+import android.content.BroadcastReceiver
+import android.content.Context
 import android.content.Intent
+import android.content.IntentFilter
 import android.os.Bundle
 import android.widget.LinearLayout
 import android.widget.TextView
@@ -42,7 +45,9 @@ class MainActivity : AppCompatActivity() {
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
+        //Song 정보 초기화
         val song = Song(binding.tvMiniplayerTitle.text.toString(), binding.tvMiniplayerSinger.text.toString(), 0, 60, false)
+
         binding.bottomLayout.setOnClickListener {
             val intent = Intent(this, SongActivity::class.java).apply {
                 //putExtra("title", "라일락")  // 초기값 전달
@@ -91,4 +96,33 @@ class MainActivity : AppCompatActivity() {
 
 
     }
+
+    private val seekBarReceiver = object : BroadcastReceiver() {
+        override fun onReceive(context: Context?, intent: Intent?) {
+            val progress = intent?.getIntExtra("progress", 0) ?: 0
+            binding.seekBarMain.progress = progress
+        }
+    }
+
+    override fun onResume() {
+        super.onResume()
+        val filter = IntentFilter("com.example.UPDATE_SEEKBAR")
+        registerReceiver(seekBarReceiver, filter)
+    }
+
+    override fun onPause() {
+        super.onPause()
+        unregisterReceiver(seekBarReceiver)
+    }
+
+    override fun onNewIntent(intent: Intent) {
+        super.onNewIntent(intent)
+        intent?.getIntExtra("progress", -1)?.let { progress ->
+            if (progress >= 0) {
+                binding.seekBarMain.progress = progress
+            }
+        }
+    }
+
+
 }

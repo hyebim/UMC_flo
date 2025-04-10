@@ -54,7 +54,6 @@ dependencies {
     implementation("androidx.navigation:navigation-fragment-ktx:2.5.0")
     implementation ("androidx.navigation:navigation-ui-ktx:2.5.0")
     implementation ("me.relex:circleindicator:2.1.6")
-    //implementation ("com.tbuonomo.viewpagerdotsindicator:4.1.0")
 
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)

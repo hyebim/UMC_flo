@@ -103,7 +103,7 @@
         app:srcCompat="@drawable/nugu_btn_down" />
 
     <SeekBar
-        android:id="@+id/seekBar"
+        android:id="@+id/seekBar_song"
         android:layout_width="394dp"
         android:layout_height="24dp"
         android:layout_marginTop="120dp"
@@ -203,7 +203,7 @@
         android:text="00:00"
         android:textColor="#673AB7"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/seekBar" />
+        app:layout_constraintTop_toBottomOf="@+id/seekBar_song" />
 
     <TextView
         android:id="@+id/tv_songEndTime"
@@ -212,7 +212,7 @@
         android:layout_marginEnd="8dp"
         android:text="01:00"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/seekBar" />
+        app:layout_constraintTop_toBottomOf="@+id/seekBar_song" />
 
     <TextView
         android:id="@+id/textView3"

@@ -19,6 +19,17 @@
         app:layout_constraintTop_toTopOf="parent"
         app:navGraph="@navigation/mobile_navigation" />
 
+    <SeekBar
+        android:id="@+id/seekBar_main"
+        android:layout_width="394dp"
+        android:layout_height="24dp"
+        android:max="100000"
+        android:thumb="@null"
+        app:layout_constraintBottom_toTopOf="@+id/bottom_layout"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.47"
+        app:layout_constraintStart_toStartOf="parent" />
+
     <LinearLayout
         android:id="@+id/bottom_layout"
         android:layout_width="match_parent"
