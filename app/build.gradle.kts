@@ -54,6 +54,7 @@ dependencies {
     implementation("androidx.navigation:navigation-fragment-ktx:2.5.0")
     implementation ("androidx.navigation:navigation-ui-ktx:2.5.0")
     implementation ("me.relex:circleindicator:2.1.6")
+    implementation ("com.google.code.gson:gson:2.10.1")
 
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)

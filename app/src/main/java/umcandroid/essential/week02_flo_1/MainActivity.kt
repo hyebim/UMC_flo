@@ -104,15 +104,48 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
+    private val playReceiver = object : BroadcastReceiver() {
+        override fun onReceive(context: Context?, intent: Intent?) {
+            if (intent?.action == "com.example.PLAY_SONG_DUMMY") {
+                val title = intent.getStringExtra("title")
+                val singer = intent.getStringExtra("singer")
+                val playTime = intent.getIntExtra("playTime", 60)
+
+                binding.tvMiniplayerTitle.text = title
+                binding.tvMiniplayerSinger.text = singer
+
+                // SeekBar 설정
+                binding.seekBarMain.max = playTime
+                binding.seekBarMain.progress = 0
+
+                // SeekBar 동기화 (1초마다 증가)
+                object : Thread() {
+                    override fun run() {
+                        for (i in 0..playTime) {
+                            // UI 스레드에서 SeekBar 진행 상태 업데이트
+                            runOnUiThread {
+                                binding.seekBarMain.progress = i
+                            }
+                            sleep(1000) // 1초마다 업데이트
+                        }
+                    }
+                }.start()
+            }
+        }
+    }
+
+
     override fun onResume() {
         super.onResume()
         val filter = IntentFilter("com.example.UPDATE_SEEKBAR")
+        registerReceiver(playReceiver, IntentFilter("com.example.PLAY_SONG_DUMMY"))
         registerReceiver(seekBarReceiver, filter)
     }
 
     override fun onPause() {
         super.onPause()
         unregisterReceiver(seekBarReceiver)
+        unregisterReceiver(playReceiver)
     }
 
     override fun onNewIntent(intent: Intent) {
