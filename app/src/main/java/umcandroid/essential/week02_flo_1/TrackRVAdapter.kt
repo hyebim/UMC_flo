@@ -44,12 +44,11 @@ class TrackRVAdapter(private val trackList: ArrayList<Track>): RecyclerView.Adap
                 }
             }
 
-            // 스위치 상태 초기화
-            binding.switchButton.isChecked = track.isSwitchOn
-
-            // 스위치 상태가 변경되면 Track 객체의 isSwitchOn 값도 업데이트
+            // 스위치 리스너 제거 → 상태 반영 → 리스너 재등록
+            binding.switchButton.setOnCheckedChangeListener(null) // 기존 리스너 제거
+            binding.switchButton.isChecked = track.isSwitchOn     // 상태 설정
             binding.switchButton.setOnCheckedChangeListener { _, isChecked ->
-                track.isSwitchOn = isChecked // 상태 업데이트
+                track.isSwitchOn = isChecked
             }
         }
 
