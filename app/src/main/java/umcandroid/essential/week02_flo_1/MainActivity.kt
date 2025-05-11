@@ -5,7 +5,9 @@ import android.content.BroadcastReceiver
 import android.content.Context
 import android.content.Intent
 import android.content.IntentFilter
+import android.content.SharedPreferences
 import android.os.Bundle
+import android.util.Log
 import android.widget.LinearLayout
 import android.widget.TextView
 import androidx.activity.result.contract.ActivityResultContracts
@@ -16,28 +18,31 @@ import androidx.navigation.findNavController
 import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.setupActionBarWithNavController
 import androidx.navigation.ui.setupWithNavController
+import com.google.gson.Gson
 import kotlinx.coroutines.launch
 import umcandroid.essential.week02_flo_1.databinding.ActivityMainBinding
 
 class MainActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityMainBinding
+    private var song: Song = Song()
+    private var gson: Gson = Gson()
 
     // registerForActivityResult로 콜백 등록
-    private val songActivityLauncher = registerForActivityResult(
-        ActivityResultContracts.StartActivityForResult()
-    ) { result ->
-        if (result.resultCode == Activity.RESULT_OK) {
-            // SongActivity에서 전달된 데이터를 받음
-            val title = result.data?.getStringExtra("title")
-            val singer = result.data?.getStringExtra("singer")
-
-            // 받은 데이터를 MainActivity의 UI에 업데이트
-            findViewById<TextView>(R.id.tv_miniplayer_title).text = title
-            findViewById<TextView>(R.id.tv_miniplayer_singer).text = singer
-
-        }
-    }
+//    private val songActivityLauncher = registerForActivityResult(
+//        ActivityResultContracts.StartActivityForResult()
+//    ) { result ->
+//        if (result.resultCode == Activity.RESULT_OK) {
+//            // SongActivity에서 전달된 데이터를 받음
+//            val title = result.data?.getStringExtra("title")
+//            val singer = result.data?.getStringExtra("singer")
+//
+//            // 받은 데이터를 MainActivity의 UI에 업데이트
+//            findViewById<TextView>(R.id.tv_miniplayer_title).text = title
+//            findViewById<TextView>(R.id.tv_miniplayer_singer).text = singer
+//
+//        }
+//    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -45,22 +50,30 @@ class MainActivity : AppCompatActivity() {
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
+        inputDummySongs()
+
         //Song 정보 초기화
-        val song = Song(binding.tvMiniplayerTitle.text.toString(), binding.tvMiniplayerSinger.text.toString(), 0, 60, false)
+        //val song = Song(binding.tvMiniplayerTitle.text.toString(), binding.tvMiniplayerSinger.text.toString(), 0, 60, false)
 
         binding.bottomLayout.setOnClickListener {
-            val intent = Intent(this, SongActivity::class.java).apply {
-                //putExtra("title", "라일락")  // 초기값 전달
-                //putExtra("singer", "아이유 (IU)")  // 초기값 전달
-                putExtra("title", song.title)
-                putExtra("singer", song.singer)
-                putExtra("second", song.second)
-                putExtra("playTime", song.playTime)
-                putExtra("isPlaying", song.isPlaying)
-                //startActivity(intent)
-            }
-            songActivityLauncher.launch(intent)  // SongActivity 실행
-            //startActivity(intent)
+//            val intent = Intent(this, SongActivity::class.java).apply {
+//                //putExtra("title", "라일락")  // 초기값 전달
+//                //putExtra("singer", "아이유 (IU)")  // 초기값 전달
+//                putExtra("title", song.title)
+//                putExtra("singer", song.singer)
+//                putExtra("second", song.second)
+//                putExtra("playTime", song.playTime)
+//                putExtra("isPlaying", song.isPlaying)
+//                //startActivity(intent)
+//            }
+//            songActivityLauncher.launch(intent)  // SongActivity 실행
+//            //startActivity(intent)
+            val editor = getSharedPreferences("song", MODE_PRIVATE).edit()
+            editor.putInt("songId", song.id)
+            editor.apply()
+
+            val intent = Intent(this,SongActivity::class.java)
+            startActivity(intent)
         }
 
         val navView: BottomNavigationView = binding.bottomNavigation
@@ -96,6 +109,7 @@ class MainActivity : AppCompatActivity() {
 
 
     }
+
 
     private val seekBarReceiver = object : BroadcastReceiver() {
         override fun onReceive(context: Context?, intent: Intent?) {
@@ -134,7 +148,28 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
+    private fun setMiniPlayer(song : Song) {
+        binding.tvMiniplayerTitle.text = song.title
+        binding.tvMiniplayerSinger.text = song.singer
+        binding.seekBarMain.progress = (song.second * 100000 / song.playTime)
+    }
 
+    override fun onStart() {
+        super.onStart()
+        val spf = getSharedPreferences("song", MODE_PRIVATE)
+        val songId = spf.getInt("songId", 0)
+
+        val songDB = SongDatabase.getInstance(this)!!
+
+        song = if(songId == 0) {
+            songDB.songDao().getSong(1)
+        } else{
+            songDB.songDao().getSong(songId)
+        }
+
+        Log.d("song ID", song.id.toString())
+        setMiniPlayer(song)
+    }
     override fun onResume() {
         super.onResume()
         val filter = IntentFilter("com.example.UPDATE_SEEKBAR")
@@ -157,5 +192,99 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
+    private fun inputDummySongs(){
+        val songDB = SongDatabase.getInstance(this)!!
+        val songs = songDB.songDao().getSongs()
+
+        if (songs.isNotEmpty()) return
+
+        songDB.songDao().insert(
+            Song(
+                "Lilac",
+                "아이유 (IU)",
+                0,
+                200,
+                false,
+                "music_lilac",
+                R.drawable.img_album_exp2,
+                false,
+
+            )
+        )
+
+        songDB.songDao().insert(
+            Song(
+                "Flu",
+                "아이유 (IU)",
+                0,
+                200,
+                false,
+                "music_flu",
+                R.drawable.img_album_exp2,
+                false,
+
+            )
+        )
+
+        songDB.songDao().insert(
+            Song(
+                "Butter",
+                "방탄소년단 (BTS)",
+                0,
+                190,
+                false,
+                "music_butter",
+                R.drawable.img_album_exp,
+                false,
+
+            )
+        )
+
+        songDB.songDao().insert(
+            Song(
+                "Next Level",
+                "에스파 (AESPA)",
+                0,
+                210,
+                false,
+                "music_next",
+                R.drawable.img_album_exp2,
+                false,
+
+            )
+        )
+
+
+        songDB.songDao().insert(
+            Song(
+                "Boy with Luv",
+                "music_boy",
+                0,
+                230,
+                false,
+                "music_butter",
+                R.drawable.img_album_exp,
+                false,
+
+            )
+        )
+
+        songDB.songDao().insert(
+            Song(
+                "BBoom",
+                "momoland",
+                0,
+                230,
+                false,
+                "music_bboom",
+                R.drawable.img_album_exp,
+                false,
+
+                )
+        )
+
+        val _songs = songDB.songDao().getSongs()
+        Log.d("DB data", _songs.toString())
+    }
 
 }

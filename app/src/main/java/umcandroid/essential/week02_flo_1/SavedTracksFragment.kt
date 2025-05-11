@@ -12,29 +12,30 @@ class SavedTracksFragment : Fragment() {
 
     private lateinit var binding: FragmentSavedTracksBinding
     private var trackDatas = ArrayList<Track>()
+    lateinit var songDB: SongDatabase
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
         // 더미 데이터는 여기서 한 번만 초기화
-        trackDatas.apply {
-            add(Track("Butter", "방탄소년단 (BTS)", R.drawable.img_album_exp))
-            add(Track("Lilac", "아이유 (IU)", R.drawable.img_album_exp2))
-            add(Track("Butter", "방탄소년단 (BTS)", R.drawable.img_album_exp))
-            add(Track("Lilac", "아이유 (IU)", R.drawable.img_album_exp2))
-            add(Track("Butter", "방탄소년단 (BTS)", R.drawable.img_album_exp))
-            add(Track("Lilac", "아이유 (IU)", R.drawable.img_album_exp2))
-            add(Track("Butter", "방탄소년단 (BTS)", R.drawable.img_album_exp))
-            add(Track("Lilac", "아이유 (IU)", R.drawable.img_album_exp2))
-            add(Track("Butter", "방탄소년단 (BTS)", R.drawable.img_album_exp))
-            add(Track("Lilac", "아이유 (IU)", R.drawable.img_album_exp2))
-            add(Track("Butter", "방탄소년단 (BTS)", R.drawable.img_album_exp))
-            add(Track("Lilac", "아이유 (IU)", R.drawable.img_album_exp2))
-            add(Track("Butter", "방탄소년단 (BTS)", R.drawable.img_album_exp))
-            add(Track("Lilac", "아이유 (IU)", R.drawable.img_album_exp2))
-            add(Track("Butter", "방탄소년단 (BTS)", R.drawable.img_album_exp))
-            add(Track("Lilac", "아이유 (IU)", R.drawable.img_album_exp2))
-        }
+//        trackDatas.apply {
+//            add(Track("Butter", "방탄소년단 (BTS)", R.drawable.img_album_exp))
+//            add(Track("Lilac", "아이유 (IU)", R.drawable.img_album_exp2))
+//            add(Track("Butter", "방탄소년단 (BTS)", R.drawable.img_album_exp))
+//            add(Track("Lilac", "아이유 (IU)", R.drawable.img_album_exp2))
+//            add(Track("Butter", "방탄소년단 (BTS)", R.drawable.img_album_exp))
+//            add(Track("Lilac", "아이유 (IU)", R.drawable.img_album_exp2))
+//            add(Track("Butter", "방탄소년단 (BTS)", R.drawable.img_album_exp))
+//            add(Track("Lilac", "아이유 (IU)", R.drawable.img_album_exp2))
+//            add(Track("Butter", "방탄소년단 (BTS)", R.drawable.img_album_exp))
+//            add(Track("Lilac", "아이유 (IU)", R.drawable.img_album_exp2))
+//            add(Track("Butter", "방탄소년단 (BTS)", R.drawable.img_album_exp))
+//            add(Track("Lilac", "아이유 (IU)", R.drawable.img_album_exp2))
+//            add(Track("Butter", "방탄소년단 (BTS)", R.drawable.img_album_exp))
+//            add(Track("Lilac", "아이유 (IU)", R.drawable.img_album_exp2))
+//            add(Track("Butter", "방탄소년단 (BTS)", R.drawable.img_album_exp))
+//            add(Track("Lilac", "아이유 (IU)", R.drawable.img_album_exp2))
+//        }
     }
 
     override fun onCreateView(
@@ -44,12 +45,30 @@ class SavedTracksFragment : Fragment() {
     ): View {
         binding = FragmentSavedTracksBinding.inflate(inflater, container, false)
 
-        val trackRVAdapter = TrackRVAdapter(trackDatas)
-        binding.savedTrackRv.adapter = trackRVAdapter
+        songDB = SongDatabase.getInstance(requireContext())!!
+
+//        val trackRVAdapter = TrackRVAdapter(trackDatas)
+//        binding.savedTrackRv.adapter = trackRVAdapter
+//        binding.savedTrackRv.layoutManager =
+//            LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false)
+
+        return binding.root
+    }
+
+    override fun onStart() {
+        super.onStart()
+        initRecyclerView()
+    }
+
+    private fun initRecyclerView(){
         binding.savedTrackRv.layoutManager =
             LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false)
 
-        return binding.root
+        val trackRVAdapter = TrackRVAdapter()
+        binding.savedTrackRv.adapter = trackRVAdapter
+
+        trackRVAdapter.addSongs(songDB.songDao().getLikedSongs(true)as ArrayList<Song>)
+
     }
 }
 

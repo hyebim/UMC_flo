@@ -8,11 +8,6 @@ import androidx.fragment.app.Fragment
 import com.google.android.material.tabs.TabLayoutMediator
 import umcandroid.essential.week02_flo_1.databinding.FragmentLockerBinding
 
-/**
- * A simple [Fragment] subclass.
- * Use the [LockerFragment.newInstance] factory method to
- * create an instance of this fragment.
- */
 class LockerFragment : Fragment() {
     private var _binding: FragmentLockerBinding? = null
     private val binding get() = _binding!!

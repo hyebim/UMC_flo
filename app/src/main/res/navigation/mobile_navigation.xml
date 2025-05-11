@@ -27,17 +27,4 @@
         android:label="보관함"
         tools:layout="@layout/fragment_locker" />
 
-    <!--
-    <fragment
-        android:id="@+id/navigation_dashboard"
-        android:name="umcandroid.essential.week02_flo_1.ui.dashboard.DashboardFragment"
-        android:label="@string/title_dashboard"
-        tools:layout="@layout/fragment_look" />
-
-    <fragment
-        android:id="@+id/navigation_notifications"
-        android:name="umcandroid.essential.week02_flo_1.ui.notifications.NotificationsFragment"
-        android:label="@string/title_notifications"
-        tools:layout="@layout/fragment_search" />
-        -->
 </navigation>
