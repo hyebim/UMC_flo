@@ -28,22 +28,6 @@ class MainActivity : AppCompatActivity() {
     private var song: Song = Song()
     private var gson: Gson = Gson()
 
-    // registerForActivityResult로 콜백 등록
-//    private val songActivityLauncher = registerForActivityResult(
-//        ActivityResultContracts.StartActivityForResult()
-//    ) { result ->
-//        if (result.resultCode == Activity.RESULT_OK) {
-//            // SongActivity에서 전달된 데이터를 받음
-//            val title = result.data?.getStringExtra("title")
-//            val singer = result.data?.getStringExtra("singer")
-//
-//            // 받은 데이터를 MainActivity의 UI에 업데이트
-//            findViewById<TextView>(R.id.tv_miniplayer_title).text = title
-//            findViewById<TextView>(R.id.tv_miniplayer_singer).text = singer
-//
-//        }
-//    }
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
@@ -52,22 +36,7 @@ class MainActivity : AppCompatActivity() {
 
         inputDummySongs()
 
-        //Song 정보 초기화
-        //val song = Song(binding.tvMiniplayerTitle.text.toString(), binding.tvMiniplayerSinger.text.toString(), 0, 60, false)
-
         binding.bottomLayout.setOnClickListener {
-//            val intent = Intent(this, SongActivity::class.java).apply {
-//                //putExtra("title", "라일락")  // 초기값 전달
-//                //putExtra("singer", "아이유 (IU)")  // 초기값 전달
-//                putExtra("title", song.title)
-//                putExtra("singer", song.singer)
-//                putExtra("second", song.second)
-//                putExtra("playTime", song.playTime)
-//                putExtra("isPlaying", song.isPlaying)
-//                //startActivity(intent)
-//            }
-//            songActivityLauncher.launch(intent)  // SongActivity 실행
-//            //startActivity(intent)
             val editor = getSharedPreferences("song", MODE_PRIVATE).edit()
             editor.putInt("songId", song.id)
             editor.apply()
@@ -208,7 +177,7 @@ class MainActivity : AppCompatActivity() {
                 "music_lilac",
                 R.drawable.img_album_exp2,
                 false,
-
+                1
             )
         )
 
@@ -222,7 +191,7 @@ class MainActivity : AppCompatActivity() {
                 "music_flu",
                 R.drawable.img_album_exp2,
                 false,
-
+                1
             )
         )
 
@@ -236,7 +205,7 @@ class MainActivity : AppCompatActivity() {
                 "music_butter",
                 R.drawable.img_album_exp,
                 false,
-
+                2
             )
         )
 
@@ -250,7 +219,7 @@ class MainActivity : AppCompatActivity() {
                 "music_next",
                 R.drawable.img_album_exp2,
                 false,
-
+                3
             )
         )
 
@@ -265,7 +234,7 @@ class MainActivity : AppCompatActivity() {
                 "music_butter",
                 R.drawable.img_album_exp,
                 false,
-
+                4
             )
         )
 
@@ -279,7 +248,7 @@ class MainActivity : AppCompatActivity() {
                 "music_bboom",
                 R.drawable.img_album_exp,
                 false,
-
+                5
                 )
         )
 

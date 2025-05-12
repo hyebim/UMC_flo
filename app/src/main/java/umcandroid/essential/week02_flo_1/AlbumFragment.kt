@@ -9,6 +9,7 @@ import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.Switch
 import com.google.android.material.tabs.TabLayoutMediator
+import com.google.gson.Gson
 import umcandroid.essential.week02_flo_1.databinding.FragmentAlbumBinding
 import umcandroid.essential.week02_flo_1.ui.home.HomeFragment
 
@@ -16,7 +17,9 @@ class AlbumFragment : Fragment() {
     // TODO: Rename and change types of parameters
     private var _binding: FragmentAlbumBinding? = null
     private val binding get() = _binding!!
+    private var gson: Gson = Gson()
 
+    private var isLiked : Boolean = false
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -27,6 +30,12 @@ class AlbumFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View {
         _binding = FragmentAlbumBinding.inflate(inflater, container, false)
+
+        val albumToJson = arguments?.getString("album")
+        val album = gson.fromJson(albumToJson, Album::class.java)
+
+        setInit(album)
+
 
         // ViewPager2와 TabLayout 초기화
         val viewPager = binding.viewPager
@@ -46,6 +55,20 @@ class AlbumFragment : Fragment() {
         }.attach()
 
         return binding.root
+    }
+
+    private fun setInit(album : Album) {
+        binding.ivAlbum.setImageResource(album.coverImg!!)
+        binding.tvAlbumname.text = album.title.toString()
+        binding.tvSinger.text = album.singer.toString()
+
+        if(isLiked) {
+            binding.ivLike.setImageResource(R.drawable.ic_my_like_on)
+        }
+
+        else {
+            binding.ivLike.setImageResource(R.drawable.ic_my_like_off)
+        }
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -98,12 +121,5 @@ class AlbumFragment : Fragment() {
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null
-    }
-
-
-    private fun setInit(album: Album){
-        binding.ivAlbum.setImageResource(album.coverImg!!)
-        binding.tvAlbumname.text = album.title.toString()
-        binding.tvSinger.text = album.singer.toString()
     }
 }

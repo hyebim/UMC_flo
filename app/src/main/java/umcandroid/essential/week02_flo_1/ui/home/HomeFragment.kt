@@ -3,6 +3,7 @@ package umcandroid.essential.week02_flo_1.ui.home
 import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -18,6 +19,7 @@ import umcandroid.essential.week02_flo_1.BannerVP2Adapter
 import umcandroid.essential.week02_flo_1.BannerVPAdapter
 import umcandroid.essential.week02_flo_1.MainActivity
 import umcandroid.essential.week02_flo_1.R
+import umcandroid.essential.week02_flo_1.SongDatabase
 import umcandroid.essential.week02_flo_1.databinding.FragmentHomeBinding
 import java.util.*
 
@@ -31,6 +33,7 @@ class HomeFragment : Fragment() {
     private var slideTask: TimerTask? = null
 
     private var albumDatas = ArrayList<Album>()
+    private lateinit var songDB: SongDatabase
 
     companion object {
         private const val ARG_POSITION = "position"
@@ -52,15 +55,11 @@ class HomeFragment : Fragment() {
         _binding = FragmentHomeBinding.inflate(inflater, container, false)
         val root: View = binding.root
 
-        // 더미 데이터
-        albumDatas.apply {
-            add(Album("Butter", "방탄소년단 (BTS)", R.drawable.img_album_exp))
-            add(Album("Lilac", "아이유 (IU)", R.drawable.img_album_exp2))
-            add(Album("Butter", "방탄소년단 (BTS)", R.drawable.img_album_exp))
-            add(Album("Lilac", "아이유 (IU)", R.drawable.img_album_exp2))
-            add(Album("Butter", "방탄소년단 (BTS)", R.drawable.img_album_exp))
-            add(Album("Lilac", "아이유 (IU)", R.drawable.img_album_exp2))
-        }
+        inputDummyAlbums()
+
+        songDB = SongDatabase.getInstance(requireContext())!!
+        albumDatas.addAll(songDB.albumDao().getAlbums())
+        Log.d("albumlist", albumDatas.toString())
 
         val albumRVAdapter = AlbumRVAdapter(albumDatas)
         binding.homeTodayMusicAlbumRv.adapter = albumRVAdapter
@@ -114,29 +113,64 @@ class HomeFragment : Fragment() {
         timer.scheduleAtFixedRate(slideTask, 3000, 3000)
     }
 
+    private fun inputDummyAlbums(){
+        val songDB = SongDatabase.getInstance(requireActivity())!!
+        val songs = songDB.albumDao().getAlbums()
+
+        if (songs.isNotEmpty()) return
+
+        songDB.albumDao().insert(
+            Album(
+                1,
+                "IU 5th Album 'LILAC'",
+                "아이유 (IU)",
+                R.drawable.img_album_exp2
+            )
+        )
+
+        songDB.albumDao().insert(
+            Album(
+                2,
+                "Butter",
+                "방탄소년단 (BTS)",
+                R.drawable.img_album_exp
+            )
+        )
+
+        songDB.albumDao().insert(
+            Album(
+                3,
+                "iScreaM Vol.10: Next Level Remixes",
+                "에스파 (AESPA)",
+                R.drawable.img_album_exp2
+            )
+        )
+
+        songDB.albumDao().insert(
+            Album(
+                4,
+                "Map of the Soul Persona",
+                "뮤직 보이 (Music Boy)",
+                R.drawable.img_album_exp,
+            )
+        )
+
+
+        songDB.albumDao().insert(
+            Album(
+                5,
+                "Great!",
+                "모모랜드 (MOMOLAND)",
+                R.drawable.img_album_exp2
+            )
+        )
+
+        val songDBData = songDB.albumDao().getAlbums()
+        Log.d("DB data", songDBData.toString())
+    }
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
-//        binding.ivAlbum3.setOnClickListener {
-//            val title = binding.tvAlbum3Title.text.toString()
-//            val singer = binding.tvAlbum3Singer.text.toString()
-//            val imageResId = R.drawable.img_album_exp2
-//
-//            val bundle = Bundle().apply {
-//                putString("title", title)
-//                putString("singer", singer)
-//                putInt("imageResId", imageResId)
-//            }
-//
-//            val albumFragment = AlbumFragment().apply {
-//                arguments = bundle
-//            }
-//
-//            activity?.supportFragmentManager?.beginTransaction()
-//                ?.replace(R.id.view_main, albumFragment)
-//                ?.addToBackStack(null)
-//                ?.commit()
-//        }
     }
 
     override fun onDestroyView() {

@@ -11,66 +11,69 @@ import umcandroid.essential.week02_flo_1.databinding.FragmentSavedTracksBinding
 class SavedTracksFragment : Fragment() {
 
     private lateinit var binding: FragmentSavedTracksBinding
-    private var trackDatas = ArrayList<Track>()
+    private lateinit var trackRVAdapter: TrackRVAdapter
     lateinit var songDB: SongDatabase
+
+    private val firebaseHelper = FirebaseHelper()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-
-        // 더미 데이터는 여기서 한 번만 초기화
-//        trackDatas.apply {
-//            add(Track("Butter", "방탄소년단 (BTS)", R.drawable.img_album_exp))
-//            add(Track("Lilac", "아이유 (IU)", R.drawable.img_album_exp2))
-//            add(Track("Butter", "방탄소년단 (BTS)", R.drawable.img_album_exp))
-//            add(Track("Lilac", "아이유 (IU)", R.drawable.img_album_exp2))
-//            add(Track("Butter", "방탄소년단 (BTS)", R.drawable.img_album_exp))
-//            add(Track("Lilac", "아이유 (IU)", R.drawable.img_album_exp2))
-//            add(Track("Butter", "방탄소년단 (BTS)", R.drawable.img_album_exp))
-//            add(Track("Lilac", "아이유 (IU)", R.drawable.img_album_exp2))
-//            add(Track("Butter", "방탄소년단 (BTS)", R.drawable.img_album_exp))
-//            add(Track("Lilac", "아이유 (IU)", R.drawable.img_album_exp2))
-//            add(Track("Butter", "방탄소년단 (BTS)", R.drawable.img_album_exp))
-//            add(Track("Lilac", "아이유 (IU)", R.drawable.img_album_exp2))
-//            add(Track("Butter", "방탄소년단 (BTS)", R.drawable.img_album_exp))
-//            add(Track("Lilac", "아이유 (IU)", R.drawable.img_album_exp2))
-//            add(Track("Butter", "방탄소년단 (BTS)", R.drawable.img_album_exp))
-//            add(Track("Lilac", "아이유 (IU)", R.drawable.img_album_exp2))
-//        }
+        songDB = SongDatabase.getInstance(requireContext())!!
     }
 
     override fun onCreateView(
-        inflater: LayoutInflater,
-        container: ViewGroup?,
+        inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
         binding = FragmentSavedTracksBinding.inflate(inflater, container, false)
 
-        songDB = SongDatabase.getInstance(requireContext())!!
+        initRecyclerView()
 
-//        val trackRVAdapter = TrackRVAdapter(trackDatas)
-//        binding.savedTrackRv.adapter = trackRVAdapter
-//        binding.savedTrackRv.layoutManager =
-//            LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false)
+        // 어댑터 초기화
+        val trackRVAdapter = TrackRVAdapter()
+        binding.savedTrackRv.layoutManager = LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false)
+        binding.savedTrackRv.adapter = trackRVAdapter
+
+        // Firebase에서 좋아요한 곡들 가져오기
+        firebaseHelper.getLikedSongs { likedSongs ->
+            trackRVAdapter.addSongs(likedSongs)
+        }
 
         return binding.root
     }
 
-    override fun onStart() {
-        super.onStart()
-        initRecyclerView()
-    }
+    private fun initRecyclerView() {
+        binding.savedTrackRv.layoutManager = LinearLayoutManager(context)
 
-    private fun initRecyclerView(){
-        binding.savedTrackRv.layoutManager =
-            LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false)
-
-        val trackRVAdapter = TrackRVAdapter()
+        trackRVAdapter = TrackRVAdapter()
         binding.savedTrackRv.adapter = trackRVAdapter
 
-        trackRVAdapter.addSongs(songDB.songDao().getLikedSongs(true)as ArrayList<Song>)
+        val likedSongs = songDB.songDao().getLikedSongs(true) as ArrayList<Song>
+        trackRVAdapter.addSongs(likedSongs)
 
+        trackRVAdapter.setItemClickListener(object : TrackRVAdapter.OnItemClickListener {
+            override fun onShowBottomSheet(songId: Int, position: Int) {
+                val bottomSheet = BottomSheetFragment()
+                bottomSheet.setSongData(songId, position, object : BottomSheetFragment.OnSongActionListener {
+                    override fun onUnlike(songId: Int, position: Int) {
+                        songDB.songDao().updateIsLikeById(false, songId)
+                        trackRVAdapter.removeItem(position)
+                    }
+                })
+                bottomSheet.show(parentFragmentManager, bottomSheet.tag)
+            }
+        })
+    }
+
+    fun deleteAllSongs() {
+        val allSongs = trackRVAdapter.getCurrentItems()
+        allSongs.forEach { song ->
+            songDB.songDao().updateIsLikeById(false, song.id)
+        }
+        trackRVAdapter.removeAll()
     }
 }
+
 
 
 

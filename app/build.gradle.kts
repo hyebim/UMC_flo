@@ -37,6 +37,9 @@ android {
     buildFeatures {
         viewBinding = true
     }
+    buildFeatures{
+        dataBinding = true
+    }
 }
 
 dependencies {
@@ -56,6 +59,8 @@ dependencies {
     implementation ("androidx.navigation:navigation-ui-ktx:2.5.0")
     implementation ("me.relex:circleindicator:2.1.6")
     implementation ("com.google.code.gson:gson:2.10.1")
+    implementation(libs.androidx.databinding.runtime)
+    implementation(libs.firebase.database.ktx)
 
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
@@ -64,5 +69,8 @@ dependencies {
     implementation("androidx.room:room-ktx:2.4.1")
     implementation("androidx.room:room-runtime:2.4.1")
     kapt("androidx.room:room-compiler:2.4.1")
+
+    implementation ("com.google.firebase:firebase-database:20.0.5'")
+    implementation ("com.google.firebase:firebase-auth:21.0.5")
 
 }

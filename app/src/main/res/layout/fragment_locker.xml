@@ -52,12 +52,32 @@
 
         </com.google.android.material.tabs.TabLayout>
 
+        <ImageView
+            android:id="@+id/locker_select_all_img_iv"
+            android:layout_width="25dp"
+            android:layout_height="25dp"
+            android:layout_marginStart="10dp"
+            android:layout_marginTop="10dp"
+            android:src="@drawable/btn_playlist_select_off"
+            app:layout_constraintTop_toBottomOf="@id/tabLayout2"
+            app:layout_constraintStart_toStartOf="@id/tabLayout2"/>
+
+        <TextView
+            android:id="@+id/locker_select_all_tv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="전체선택"
+            android:textColor="@color/colorPrimaryGrey"
+            app:layout_constraintStart_toEndOf="@id/locker_select_all_img_iv"
+            app:layout_constraintTop_toTopOf="@id/locker_select_all_img_iv"
+            app:layout_constraintBottom_toBottomOf="@id/locker_select_all_img_iv"/>
+
         <androidx.viewpager2.widget.ViewPager2
             android:id="@+id/viewPager2"
-            android:layout_width="414dp"
-            android:layout_height="758dp"
+            android:layout_width="413dp"
+            android:layout_height="668dp"
+            android:layout_marginTop="44dp"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.666"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/tabLayout2" />
     </androidx.constraintlayout.widget.ConstraintLayout>
