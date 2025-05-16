@@ -28,7 +28,7 @@ class SongActivity : AppCompatActivity() {
     lateinit var songDB: SongDatabase
     var nowPos = 0
 
-    private lateinit var firebaseHelper: FirebaseHelper
+//    private lateinit var firebaseHelper: FirebaseHelper
     private lateinit var song: Song
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -39,7 +39,7 @@ class SongActivity : AppCompatActivity() {
         setContentView(binding.root)
 
         // FirebaseHelper 초기화
-        firebaseHelper = FirebaseHelper()
+//        firebaseHelper = FirebaseHelper()
 
         initPlayList()
         initSong()
@@ -79,21 +79,22 @@ class SongActivity : AppCompatActivity() {
 //            setLike(songs[nowPos].isLike)
 //        }
 
-        val songId = intent.getStringExtra("songId") ?: ""
-        loadSong(songId)
+//        val songId = intent.getStringExtra("songId") ?: ""
+//        loadSong(songId)
 
         // 좋아요 버튼 클릭 시 Firebase에 상태 업데이트
-        binding.songLikeIv.setOnClickListener {
-            song.isLike = !song.isLike  // 좋아요 상태 반전
-            firebaseHelper.updateLikeStatus(song.id.toString(), song.isLike) // Firebase에 업데이트
+//        binding.songLikeIv.setOnClickListener {
+//            song.isLike = !song.isLike  // 좋아요 상태 반전
+//            firebaseHelper.updateLikeStatus(song.id.toString(), song.isLike) // Firebase에 업데이트
+//
+//            // 좋아요 상태에 맞게 버튼 이미지 변경
+//            if (song.isLike) {
+//                binding.songLikeIv.setImageResource(R.drawable.ic_my_like_on)
+//            } else {
+//                binding.songLikeIv.setImageResource(R.drawable.ic_my_like_off)
+//            }
+//        }
 
-            // 좋아요 상태에 맞게 버튼 이미지 변경
-            if (song.isLike) {
-                binding.songLikeIv.setImageResource(R.drawable.ic_my_like_on)
-            } else {
-                binding.songLikeIv.setImageResource(R.drawable.ic_my_like_off)
-            }
-        }
         binding.seekBarSong.setOnSeekBarChangeListener(object : SeekBar.OnSeekBarChangeListener {
             override fun onProgressChanged(seekBar: SeekBar?, progress: Int, fromUser: Boolean) {
                 if (fromUser) {
@@ -118,21 +119,21 @@ class SongActivity : AppCompatActivity() {
 
     }
 
-    private fun loadSong(songId: String) {
-        // Firebase에서 곡 정보 가져오기
-        firebaseHelper.getSongById(songId) { fetchedSong ->
-            song = fetchedSong
-
-            // UI에 데이터 표시
-            binding.tvSongTitle.text = song.title
-            binding.tvSongSinger.text = song.singer
-            if (song.isLike) {
-                binding.songLikeIv.setImageResource(R.drawable.ic_my_like_on)
-            } else {
-                binding.songLikeIv.setImageResource(R.drawable.ic_my_like_off)
-            }
-        }
-    }
+//    private fun loadSong(songId: String) {
+//        // Firebase에서 곡 정보 가져오기
+//        firebaseHelper.getSongById(songId) { fetchedSong ->
+//            song = fetchedSong
+//
+//            // UI에 데이터 표시
+//            binding.tvSongTitle.text = song.title
+//            binding.tvSongSinger.text = song.singer
+//            if (song.isLike) {
+//                binding.songLikeIv.setImageResource(R.drawable.ic_my_like_on)
+//            } else {
+//                binding.songLikeIv.setImageResource(R.drawable.ic_my_like_off)
+//            }
+//        }
+//    }
 
     override fun onPause() {
         super.onPause()

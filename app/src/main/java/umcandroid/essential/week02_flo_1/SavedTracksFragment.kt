@@ -14,8 +14,6 @@ class SavedTracksFragment : Fragment() {
     private lateinit var trackRVAdapter: TrackRVAdapter
     lateinit var songDB: SongDatabase
 
-    private val firebaseHelper = FirebaseHelper()
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         songDB = SongDatabase.getInstance(requireContext())!!
@@ -29,15 +27,15 @@ class SavedTracksFragment : Fragment() {
 
         initRecyclerView()
 
-        // 어댑터 초기화
-        val trackRVAdapter = TrackRVAdapter()
-        binding.savedTrackRv.layoutManager = LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false)
-        binding.savedTrackRv.adapter = trackRVAdapter
-
-        // Firebase에서 좋아요한 곡들 가져오기
-        firebaseHelper.getLikedSongs { likedSongs ->
-            trackRVAdapter.addSongs(likedSongs)
-        }
+//        // 어댑터 초기화
+//        val trackRVAdapter = TrackRVAdapter()
+//        binding.savedTrackRv.layoutManager = LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false)
+//        binding.savedTrackRv.adapter = trackRVAdapter
+//
+//        // Firebase에서 좋아요한 곡들 가져오기
+//        firebaseHelper.getLikedSongs { likedSongs ->
+//            trackRVAdapter.addSongs(likedSongs)
+//        }
 
         return binding.root
     }

@@ -1,10 +1,12 @@
 package umcandroid.essential.week02_flo_1
 
+import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.android.material.tabs.TabLayoutMediator
@@ -40,7 +42,7 @@ class LockerFragment : Fragment() {
         }.attach()
 
         // BottomSheetFragment에 전달할 데이터를 준비
-        val bottomSheetFragment = BottomSheetFragment()
+//        val bottomSheetFragment = BottomSheetFragment()
 
         binding.lockerSelectAllTv.setOnClickListener {
             val bottomSheetFragment = BottomSheetFragment()
@@ -57,8 +59,48 @@ class LockerFragment : Fragment() {
             bottomSheetFragment.show(parentFragmentManager, "BottomSheetDialog")
         }
 
+        binding.loginTv.setOnClickListener {
+            startActivity(Intent(activity, LoginActivity::class.java))
+        }
 
         return binding.root
+    }
+
+    override fun onStart() {
+        super.onStart()
+        initViews()
+    }
+
+    private fun getJwt():Int{
+        val spf = activity?.getSharedPreferences("auth", AppCompatActivity.MODE_PRIVATE)
+        return spf!!.getInt("jwt", 0)
+    }
+
+    private fun initViews(){
+        val jwt : Int = getJwt()
+        if(jwt == 0) {
+            binding.loginTv.text = "로그인"
+            binding.loginTv.setOnClickListener {
+                startActivity(Intent(activity, LoginActivity::class.java))
+            }
+        } else {
+            binding.loginTv.text = "로그아웃"
+            binding.loginTv.setOnClickListener {
+                logout()
+                val intent = Intent(requireContext(), MainActivity::class.java)
+                intent.flags = Intent.FLAG_ACTIVITY_CLEAR_TASK or Intent.FLAG_ACTIVITY_NEW_TASK
+                startActivity(intent)
+                requireActivity().finish() // 현재 액티비티 종료
+            }
+
+        }
+    }
+
+    private fun logout() {
+        val spf = activity?.getSharedPreferences("auth", AppCompatActivity.MODE_PRIVATE)
+        val editor = spf!!.edit()
+        editor.remove("jwt")
+        editor.apply()
     }
 
     override fun onDestroyView() {
