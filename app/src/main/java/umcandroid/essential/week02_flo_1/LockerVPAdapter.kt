@@ -3,10 +3,10 @@ package umcandroid.essential.week02_flo_1
 import androidx.fragment.app.Fragment
 import androidx.viewpager2.adapter.FragmentStateAdapter
 
-class LockerPagerAdapter (fragment: Fragment) : FragmentStateAdapter(fragment) {
+class LockerVPAdapter (fragment: Fragment) : FragmentStateAdapter(fragment) {
 
     companion object {
-        private const val NUM_PAGES = 2
+        private const val NUM_PAGES = 3
     }
 
     override fun getItemCount(): Int = NUM_PAGES
@@ -15,7 +15,7 @@ class LockerPagerAdapter (fragment: Fragment) : FragmentStateAdapter(fragment) {
         return when (position) {
             0 -> SavedTracksFragment() // 저장한 곡
             1 -> MusicFilesFragment() // 음악 파일
-            else -> throw IllegalArgumentException("Invalid position: $position")
+            else -> SavedAlbumFragment()
         }
     }
 }

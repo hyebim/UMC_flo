@@ -11,6 +11,16 @@ import umcandroid.essential.week02_flo_1.databinding.ItemAlbumBinding
 
 class AlbumRVAdapter(private val albumList: List<Album>): RecyclerView.Adapter<AlbumRVAdapter.ViewHolder>() {
 
+    //메인 화면에서 앨범 선택했을 때
+    interface MyItemClickListener{
+        fun onItemClick(album: Album)
+    }
+
+    private lateinit var mItemClickListener: MyItemClickListener
+    fun setMyItemClickListener(itemClickListener: MyItemClickListener){
+        mItemClickListener = itemClickListener
+    }
+
     override fun onCreateViewHolder(viewGroup: ViewGroup, viewType: Int): AlbumRVAdapter.ViewHolder {
         val binding: ItemAlbumBinding = ItemAlbumBinding.inflate(LayoutInflater.from(viewGroup.context), viewGroup, false)
 
@@ -19,9 +29,7 @@ class AlbumRVAdapter(private val albumList: List<Album>): RecyclerView.Adapter<A
 
     override fun onBindViewHolder(holder: AlbumRVAdapter.ViewHolder, position: Int) {
         holder.bind(albumList[position])
-//        holder.itemView.setOnClickListener {
-//            itemClickListener.onItemClick(albumList[position])
-//        }
+        holder.itemView.setOnClickListener { mItemClickListener.onItemClick(albumList[position]) }
 //
 //        holder.binding.itemAlbumPlayImgIv.setOnClickListener {
 //            itemClickListener.onPlayAlbum(albumList[position])

@@ -5,10 +5,8 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
-import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.android.material.tabs.TabLayoutMediator
 import umcandroid.essential.week02_flo_1.databinding.FragmentLockerBinding
 
@@ -16,9 +14,9 @@ class LockerFragment : Fragment() {
     private var _binding: FragmentLockerBinding? = null
     private val binding get() = _binding!!
 
-    private lateinit var pagerAdapter: LockerPagerAdapter
+    private lateinit var pagerAdapter: LockerVPAdapter
 
-    private val information = arrayListOf("저장한곡", "음악파일")
+    private val information = arrayListOf("저장한곡", "음악파일", "저장앨범")
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -28,14 +26,14 @@ class LockerFragment : Fragment() {
 
         // 어댑터가 초기화되지 않았다면 생성
         if (!::pagerAdapter.isInitialized) {
-            pagerAdapter = LockerPagerAdapter(this)
+            pagerAdapter = LockerVPAdapter(this)
         }
 
         // ViewPager2와 어댑터 연결
         binding.viewPager2.adapter = pagerAdapter
 
         // TabLayout과 ViewPager2 연결
-        val lockerAdapter = LockerPagerAdapter(this)
+        val lockerAdapter = LockerVPAdapter(this)
         binding.viewPager2.adapter = lockerAdapter
         TabLayoutMediator(binding.tabLayout2, binding.viewPager2) { tab, position ->
             tab.text = information[position]

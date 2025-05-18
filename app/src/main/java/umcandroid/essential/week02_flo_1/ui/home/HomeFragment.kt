@@ -10,6 +10,7 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.viewpager2.widget.ViewPager2
+import com.google.gson.Gson
 import umcandroid.essential.week02_flo_1.Album
 import umcandroid.essential.week02_flo_1.AlbumFragment
 import umcandroid.essential.week02_flo_1.AlbumRVAdapter
@@ -35,6 +36,7 @@ class HomeFragment : Fragment() {
     private var albumDatas = ArrayList<Album>()
     private lateinit var songDB: SongDatabase
 
+
     companion object {
         private const val ARG_POSITION = "position"
 
@@ -55,7 +57,7 @@ class HomeFragment : Fragment() {
         _binding = FragmentHomeBinding.inflate(inflater, container, false)
         val root: View = binding.root
 
-        inputDummyAlbums()
+        //inputDummyAlbums()
 
         songDB = SongDatabase.getInstance(requireContext())!!
         albumDatas.addAll(songDB.albumDao().getAlbums())
@@ -65,19 +67,12 @@ class HomeFragment : Fragment() {
         binding.homeTodayMusicAlbumRv.adapter = albumRVAdapter
         binding.homeTodayMusicAlbumRv.layoutManager = LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
 
-//        albumRVAdapter.setMyItemClickListener(object: AlbumRVAdapter.MyItemClickListener{
-//            override fun onItemClick() {
-//                (context as MainActivity).supportFragmentManager.beginTransaction()
-//                    .replace(R.id.view_main, AlbumFragment().apply {
-//                        arguments = Bundle().apply {
-//                            val gson = Gson()
-//                            val albumJson = gson.toJson(album)
-//                            putString("album", albumJson)
-//                        }
-//                    })
-//                    .commitAllowingStateLoss()
-//            }
-//        })
+        //앨범
+        albumRVAdapter.setMyItemClickListener(object: AlbumRVAdapter.MyItemClickListener{
+            override fun onItemClick(album : Album) {
+                changeAlbumFragment(album)
+            }
+        })
 
         val bannerAdapter = BannerVPAdapter(this)
         bannerAdapter.addFragment(BannerFragment(R.drawable.img_home_viewpager_exp))
@@ -98,6 +93,18 @@ class HomeFragment : Fragment() {
         return root
     }
 
+    private fun changeAlbumFragment(album: Album) {
+        (context as MainActivity).supportFragmentManager.beginTransaction()
+            .replace(R.id.view_main, AlbumFragment().apply {
+                arguments = Bundle().apply {
+                    val gson = Gson()
+                    val albumJson = gson.toJson(album)
+                    putString("album", albumJson)
+                }
+            })
+            .commitAllowingStateLoss()
+    }
+
     private fun startAutoSlide(adapter: BannerVP2Adapter) {
         slideTask = object : TimerTask() {
             override fun run() {
@@ -111,62 +118,6 @@ class HomeFragment : Fragment() {
             }
         }
         timer.scheduleAtFixedRate(slideTask, 3000, 3000)
-    }
-
-    private fun inputDummyAlbums(){
-        val songDB = SongDatabase.getInstance(requireActivity())!!
-        val songs = songDB.albumDao().getAlbums()
-
-        if (songs.isNotEmpty()) return
-
-        songDB.albumDao().insert(
-            Album(
-                1,
-                "IU 5th Album 'LILAC'",
-                "아이유 (IU)",
-                R.drawable.img_album_exp2
-            )
-        )
-
-        songDB.albumDao().insert(
-            Album(
-                2,
-                "Butter",
-                "방탄소년단 (BTS)",
-                R.drawable.img_album_exp
-            )
-        )
-
-        songDB.albumDao().insert(
-            Album(
-                3,
-                "iScreaM Vol.10: Next Level Remixes",
-                "에스파 (AESPA)",
-                R.drawable.img_album_exp2
-            )
-        )
-
-        songDB.albumDao().insert(
-            Album(
-                4,
-                "Map of the Soul Persona",
-                "뮤직 보이 (Music Boy)",
-                R.drawable.img_album_exp,
-            )
-        )
-
-
-        songDB.albumDao().insert(
-            Album(
-                5,
-                "Great!",
-                "모모랜드 (MOMOLAND)",
-                R.drawable.img_album_exp2
-            )
-        )
-
-        val songDBData = songDB.albumDao().getAlbums()
-        Log.d("DB data", songDBData.toString())
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {

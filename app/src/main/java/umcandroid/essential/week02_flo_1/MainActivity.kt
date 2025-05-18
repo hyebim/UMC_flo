@@ -35,6 +35,7 @@ class MainActivity : AppCompatActivity() {
         setContentView(binding.root)
 
         inputDummySongs()
+        inputDummyAlbums()
 
         binding.bottomLayout.setOnClickListener {
             val editor = getSharedPreferences("song", MODE_PRIVATE).edit()
@@ -254,6 +255,62 @@ class MainActivity : AppCompatActivity() {
 
         val _songs = songDB.songDao().getSongs()
         Log.d("DB data", _songs.toString())
+    }
+
+    private fun inputDummyAlbums(){
+        val songDB = SongDatabase.getInstance(this)!!
+        val albums = songDB.albumDao().getAlbums()
+
+        if (albums.isNotEmpty()) return
+
+        songDB.albumDao().insert(
+            Album(
+                1,
+                "IU 5th Album 'LILAC'",
+                "아이유 (IU)",
+                R.drawable.img_album_exp2
+            )
+        )
+
+        songDB.albumDao().insert(
+            Album(
+                2,
+                "Butter",
+                "방탄소년단 (BTS)",
+                R.drawable.img_album_exp
+            )
+        )
+
+        songDB.albumDao().insert(
+            Album(
+                3,
+                "iScreaM Vol.10: Next Level Remixes",
+                "에스파 (AESPA)",
+                R.drawable.img_album_exp2
+            )
+        )
+
+        songDB.albumDao().insert(
+            Album(
+                4,
+                "Map of the Soul Persona",
+                "뮤직 보이 (Music Boy)",
+                R.drawable.img_album_exp,
+            )
+        )
+
+
+        songDB.albumDao().insert(
+            Album(
+                5,
+                "Great!",
+                "모모랜드 (MOMOLAND)",
+                R.drawable.img_album_exp2
+            )
+        )
+
+        val songDBData = songDB.albumDao().getAlbums()
+        Log.d("DB data", songDBData.toString())
     }
 
 }
