@@ -19,24 +19,37 @@
         android:id="@+id/login_password_et"
         android:layout_width="379dp"
         android:layout_height="54dp"
-        android:layout_marginTop="32dp"
+        android:layout_marginTop="10dp"
         android:ems="10"
         android:inputType="text"
-        android:text="비밀번호"
+        android:hint="비밀번호"
         android:textColor="@color/gray_color"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/loginIdEt" />
+
+<!--    <EditText-->
+<!--        android:id="@+id/login_name_et"-->
+<!--        android:layout_width="379dp"-->
+<!--        android:layout_height="54dp"-->
+<!--        android:layout_marginStart="16dp"-->
+<!--        android:layout_marginTop="10dp"-->
+<!--        android:ems="10"-->
+<!--        android:inputType="text"-->
+<!--        android:hint="이름"-->
+<!--        android:textColor="@color/gray_color"-->
+<!--        app:layout_constraintStart_toStartOf="parent"-->
+<!--        app:layout_constraintTop_toBottomOf="@+id/login_password_et" />-->
 
     <EditText
         android:id="@+id/loginIdEt"
         android:layout_width="183dp"
         android:layout_height="54dp"
         android:layout_marginStart="16dp"
-        android:layout_marginTop="76dp"
+        android:layout_marginTop="70dp"
         android:ems="10"
         android:inputType="text"
-        android:text="아이디(이메일)"
+        android:hint="아이디(이메일)"
         android:textColor="@color/gray_color"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/iv_logo" />
@@ -55,11 +68,11 @@
         android:id="@+id/login_direct_input_et"
         android:layout_width="183dp"
         android:layout_height="54dp"
-        android:layout_marginTop="76dp"
+        android:layout_marginTop="70dp"
         android:layout_marginEnd="16dp"
         android:ems="10"
         android:inputType="text"
-        android:text="직접입력"
+        android:hint="직접입력"
         android:textColor="@color/gray_color"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/iv_logo" />
@@ -171,5 +184,17 @@
         app:layout_constraintStart_toEndOf="@+id/iv_naver"
         app:layout_constraintTop_toBottomOf="@+id/login_sign_in_phone_btn"
         app:srcCompat="@drawable/kakako_44" />
+
+    <TextView
+        android:id="@+id/textView2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="80dp"
+        android:text="\@"
+        android:textSize="20sp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toStartOf="@+id/login_direct_input_et"
+        app:layout_constraintTop_toBottomOf="@+id/iv_logo" />
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>

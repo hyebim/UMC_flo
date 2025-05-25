@@ -77,6 +77,8 @@ class MainActivity : AppCompatActivity() {
         setupActionBarWithNavController(navController, appBarConfiguration)
         navView.setupWithNavController(navController)
 
+        //**
+        Log.d("MAIN/JWT_TO_SERVER", getJwt().toString())
 
     }
 
@@ -122,6 +124,12 @@ class MainActivity : AppCompatActivity() {
         binding.tvMiniplayerTitle.text = song.title
         binding.tvMiniplayerSinger.text = song.singer
         binding.seekBarMain.progress = (song.second * 100000 / song.playTime)
+    }
+
+    //**
+    private fun getJwt():String?{
+        val spf = this?.getSharedPreferences("auth2", AppCompatActivity.MODE_PRIVATE)
+        return spf!!.getString("jwt", "")
     }
 
     override fun onStart() {

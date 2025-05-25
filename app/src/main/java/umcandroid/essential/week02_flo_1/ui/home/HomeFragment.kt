@@ -75,14 +75,14 @@ class HomeFragment : Fragment() {
         })
 
         val bannerAdapter = BannerVPAdapter(this)
-        bannerAdapter.addFragment(BannerFragment(R.drawable.img_home_viewpager_exp))
-        bannerAdapter.addFragment(BannerFragment(R.drawable.img_home_viewpager_exp2))
+        bannerAdapter.addFragment(BannerFragment.newInstance(R.drawable.img_home_viewpager_exp))
+        bannerAdapter.addFragment(BannerFragment.newInstance(R.drawable.img_home_viewpager_exp2))
         binding.homeBannerVp.adapter = bannerAdapter
         binding.homeBannerVp.orientation = ViewPager2.ORIENTATION_HORIZONTAL
 
         val banner2Adapter = BannerVP2Adapter(this)
-        banner2Adapter.addFragment(Banner2Fragment(R.drawable.img_first_album_default))
-        banner2Adapter.addFragment(Banner2Fragment(R.drawable.img_home_viewpager_exp2))
+        banner2Adapter.addFragment(Banner2Fragment.newInstance(R.drawable.img_first_album_default))
+        banner2Adapter.addFragment(Banner2Fragment.newInstance(R.drawable.img_home_viewpager_exp2))
         binding.ivBackground.adapter = banner2Adapter
         binding.ivBackground.orientation = ViewPager2.ORIENTATION_HORIZONTAL
 

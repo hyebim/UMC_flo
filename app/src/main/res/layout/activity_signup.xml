@@ -32,26 +32,26 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <EditText
-        android:id="@+id/sign_up_password_et"
+        android:id="@+id/sign_up_password_check_et"
         android:layout_width="379dp"
         android:layout_height="54dp"
-        android:layout_marginTop="45dp"
+        android:layout_marginTop="204dp"
         android:ems="10"
         android:inputType="text"
-        android:text="비밀번호"
+        android:text="비밀번호 확인"
         android:textColor="@color/gray_color"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/sign_up_id_et" />
 
     <EditText
-        android:id="@+id/sign_up_password_check_et"
+        android:id="@+id/sign_up_password_et"
         android:layout_width="379dp"
         android:layout_height="54dp"
-        android:layout_marginTop="128dp"
+        android:layout_marginTop="120dp"
         android:ems="10"
         android:inputType="text"
-        android:text="비밀번호 확인"
+        android:text="비밀번호"
         android:textColor="@color/gray_color"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -94,4 +94,31 @@
         app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
+
+    <EditText
+        android:id="@+id/sign_up_name_et"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="40dp"
+        android:ems="10"
+        android:inputType="text"
+        android:text="이름"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/sign_up_id_et" />
+
+    <TextView
+        android:id="@+id/sign_up_email_error_tv"
+        android:layout_width="20dp"
+        android:layout_height="20dp"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="50dp"
+        android:textColor="#F11818"
+        android:textSize="14sp"
+        android:textStyle="bold"
+        android:visibility="gone"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+
 </androidx.constraintlayout.widget.ConstraintLayout>
