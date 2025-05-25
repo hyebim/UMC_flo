@@ -12,8 +12,8 @@
         android:layout_marginTop="128dp"
         android:layout_marginEnd="16dp"
         android:ems="10"
+        android:hint="직접입력"
         android:inputType="text"
-        android:text="직접입력"
         android:textColor="@color/gray_color"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
@@ -25,11 +25,22 @@
         android:layout_marginStart="16dp"
         android:layout_marginTop="128dp"
         android:ems="10"
+        android:hint="아이디(이메일)"
         android:inputType="text"
-        android:text="아이디(이메일)"
         android:textColor="@color/gray_color"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/tv_email"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="60dp"
+        android:text="\@"
+        android:textSize="20sp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toStartOf="@+id/sign_up_direct_input_et"
+        app:layout_constraintTop_toBottomOf="@+id/tv_signUpLogo" />
 
     <EditText
         android:id="@+id/sign_up_password_check_et"
@@ -38,7 +49,7 @@
         android:layout_marginTop="204dp"
         android:ems="10"
         android:inputType="text"
-        android:text="비밀번호 확인"
+        android:hint="비밀번호 확인"
         android:textColor="@color/gray_color"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -51,7 +62,7 @@
         android:layout_marginTop="120dp"
         android:ems="10"
         android:inputType="text"
-        android:text="비밀번호"
+        android:hint="비밀번호"
         android:textColor="@color/gray_color"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -103,7 +114,7 @@
         android:layout_marginTop="40dp"
         android:ems="10"
         android:inputType="text"
-        android:text="이름"
+        android:hint="이름"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/sign_up_id_et" />
 
