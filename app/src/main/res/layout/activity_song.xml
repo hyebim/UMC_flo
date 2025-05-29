@@ -5,7 +5,7 @@
     android:id="@+id/activity_song"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".SongActivity">
+    tools:context=".ui.song.SongActivity">
 
     <ImageView
         android:id="@+id/imageView"

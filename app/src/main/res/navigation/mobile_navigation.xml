@@ -7,14 +7,14 @@
 
     <fragment
         android:id="@+id/homeFragment"
-        android:name="umcandroid.essential.week02_flo_1.ui.home.HomeFragment"
+        android:name="umcandroid.essential.week02_flo_1.ui.main.home.HomeFragment"
         android:label="@string/title_home"
         tools:layout="@layout/fragment_home">
     </fragment>
 
     <fragment
         android:id="@+id/albumFragment"
-        android:name="umcandroid.essential.week02_flo_1.AlbumFragment"
+        android:name="umcandroid.essential.week02_flo_1.ui.main.album.AlbumFragment"
         android:label="AlbumFragment"
         tools:layout="@layout/fragment_album">
 
@@ -23,7 +23,7 @@
 
     <fragment
         android:id="@+id/navigation_box"
-        android:name="umcandroid.essential.week02_flo_1.LockerFragment"
+        android:name="umcandroid.essential.week02_flo_1.ui.main.locker.LockerFragment"
         android:label="보관함"
         tools:layout="@layout/fragment_locker" />
 
